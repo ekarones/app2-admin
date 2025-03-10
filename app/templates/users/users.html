@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block title %}App2 | Usuarios{% endblock %} {% block options %}
+<li><a href="{{ url_for('main.dashboard.index') }}" title="Panel">PANEL</a></li>
+<li><a class="active" href="{{ url_for('main.users.index') }}" title="Usuarios">USUARIOS</a></li>
+<li><a href="{{ url_for('main.diseases.index') }}" title="Enfermedades">ENFERMEDADES</a></li>
+<li><a href="{{ url_for('main.advices.index') }}" title="Consejos">CONSEJOS</a></li>
+<li><a href="{{ url_for('main.records.index') }}" title="Registros">REGISTROS</a></li>
+<li><a href="{{ url_for('main.notifications.index') }}" title="Notificaciones">NOTIFICACIONES</a></li>
+<li><a href="{{ url_for('main.admins.index') }}" title="Administradores">ADMINISTRADORES</a></li>
+{% endblock %} {% block section %}Usuarios{% endblock %} {% block button %}
+<button id="open-modal-create" class="btn-primary" title="Agregar usuario">AGREGAR USUARIOS</button>
+{% endblock %} {% block content %}
+<table class="content-table">
+  <thead>
+    <tr>
+      <th class="col-id">ID</th>
+      <th class="col-name">Nombre de usuario</th>
+      <th class="col-email">Correo electrónico</th>
+      <th class="col-password">Contraseña</th>
+      <th class="col-button">Editar</th>
+      <th class="col-button">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user[0] }}</td>
+      <td>{{ user[1] }}</td>
+      <td>{{ user[2] }}</td>
+      <td>{{ user[3] }}</td>
+      <td>
+        <button class="update-btn" data-id="{{ user[0] }}" data-username="{{ user[1] }}" data-email="{{ user[2] }}" data-password="{{ user[3] }}" title="Editar usuario">
+          <i class="bx bxs-edit-alt"></i>
+        </button>
+      </td>
+      <td>
+        <form class="form-delete" method="POST" action="{{ url_for('main.users.delete_user', id=user[0]) }}">
+          <button class="delete-btn" type="submit" title="Eliminar usuario">
+            <i class="bx bxs-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  {% if page > 1 %}
+  <a href="{{ url_for('main.users.index', page=page-1) }}" title="Anterior">Anterior</a>
+  {% endif %}
+
+  <span>Página {{ page }} de {{ total_pages }}</span>
+
+  {% if page < total_pages %}
+  <a href="{{ url_for('main.users.index', page=page+1) }}" title="Siguiente">Siguiente</a>
+  {% endif %}
+</div>
+
+<div class="modal" id="modal-create">
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal-create" title="Cerrar"><i class="bx bx-x"></i></button>
+    <h1>Agregar Usuario</h1>
+    <form method="POST" action="/users/add_user">
+      <input type="text" id="username" name="username" placeholder="Nombre de usuario" autocomplete="off" minlength="3" required />
+      <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="off" required />
+      <input type="password" id="password" name="password" placeholder="Contraseña" autocomplete="off" minlength="6" required />
+      <button class="btn-primary" type="submit" title="Guardar">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="modal-update">
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal-update" title="Cerrar"><i class="bx bx-x"></i></button>
+    <h1>Actualizar Usuario</h1>
+    <h1>ID: <span id="id-user"></span></h1>
+    <form method="post" id="updateForm">
+      <input type="text" id="username" name="username" placeholder="Nombre de usuario" autocomplete="off" minlength="3" required />
+      <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="off" required />
+      <input type="password" id="password" name="password" placeholder="Contraseña" autocomplete="off" minlength="6" required />
+      <button class="btn-primary" type="submit" title="Guardar">Guardar</button>
+    </form>
+  </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+<script>
+  alert("{{ message }}");
+</script>
+{% endfor %} {% endif %} {% endwith %} {% endblock %} {% block script %}
+<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}

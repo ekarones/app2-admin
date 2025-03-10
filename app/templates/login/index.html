@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesión en App2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+  </head>
+
+  <body>
+    <div class="div-form">
+      <form method="post">
+        <h1>App2</h1>
+        <h1>Administrador</h1>
+        <i class="bx bx-shield-quarter"></i>
+        <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="on" required />
+        <input type="password" id="password" name="password" placeholder="Contraseña" required />
+        <button type="submit" title="Iniciar sesión">Iniciar Sesión</button>
+      </form>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+      <div class="div-message">
+        <i class="bx bx-error-circle"></i>
+        <h2 class="{{ category }}">{{ message }}</h2>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+  </body>
+</html>

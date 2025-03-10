@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}App2 | Registros{% endblock %} {% block options %}
+<li><a href="{{ url_for('main.dashboard.index') }}" title="Panel">PANEL</a></li>
+<li><a href="{{ url_for('main.users.index') }}" title="Usuarios">USUARIOS</a></li>
+<li><a href="{{ url_for('main.diseases.index') }}" title="Enfermedades">ENFERMEDADES</a></li>
+<li><a href="{{ url_for('main.advices.index') }}" title="Consejos">CONSEJOS</a></li>
+<li><a class="active" href="{{ url_for('main.records.index') }}" title="Registros">REGISTROS</a></li>
+<li><a href="{{ url_for('main.notifications.index') }}" title="Notificaciones">NOTIFICACIONES</a></li>
+<li><a href="{{ url_for('main.admins.index') }}" title="Administradores">ADMINISTRADORES</a></li>
+{% endblock %} {% block section %}Registros{% endblock %} {% block content %}
+<table class="content-table">
+  <thead>
+    <tr>
+      <th class="col-id">ID</th>
+      <th class="col-id-2">Usuario ID</th>
+      <th class="col-id-2">Enfermedad ID</th>
+      <th class="col-util">Nombre enfermedad</th>
+      <th class="col-date">Fecha</th>
+      <th class="col-button">Imagen</th>
+      <th class="col-button">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in records %}
+    <tr>
+      <td>{{ record[0] }}</td>
+      <td>{{ record[1] }}</td>
+      <td>{{ record[3] }}</td>
+      <td>{{ record[4] }}</td>
+      <td>{{ record[5] }}</td>
+      <td>
+        <button class="show-image-btn" data-api-url="{{api_url_images}}" data-image-name="{{ record[2] }}" title="Ver imagen">
+          <i class="bx bxs-file-image"></i>
+        </button>
+      </td>
+      <td>
+        <form class="form-delete" method="POST" action="{{ url_for('main.records.delete_record', id=record[0]) }}">
+          <button class="delete-btn" type="submit" title="Eliminar registro">
+            <i class="bx bxs-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="pagination">
+  {% if page > 1 %}
+  <a href="{{ url_for('main.records.index', page=page-1) }}" title="Anterior">Anterior</a>
+  {% endif %}
+
+  <span>Página {{ page }} de {{ total_pages }}</span>
+
+  {% if page < total_pages %}
+  <a href="{{ url_for('main.records.index', page=page+1) }}" title="Siguiente">Siguiente</a>
+  {% endif %}
+</div>
+
+<div class="modal" id="modal-image">
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal-image" title="Cerrar"><i class="bx bx-x"></i></button>
+    <h1>Imagen</h1>
+    <img id="ref-image" src="" alt="Imagen de la enfermedad" style="max-width: 500px; max-height: 500px" />
+  </div>
+</div>
+{% endblock %} {% block script %}
+<script src="{{ url_for('static', filename='js/records.js') }}"></script>
+{% endblock %}

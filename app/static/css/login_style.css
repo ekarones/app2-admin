@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+:root {
+  --color-first: #d4805c;
+  --color-second: #4f5055;
+  --color-third: #d5d6db;
+  --color-fourth: #b0603e;
+  --color-placeholder: #a9aaae;
+  --color-background: #24242c;
+  --color-text-white: #eeeeee;
+  --color-text-black: #202528;
+  --color-text-red: #c94139;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-background);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-form {
+  background-color: var(--color-background);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.75);
+}
+
+.div-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.div-form h1 {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--color-text-white);
+  text-align: center;
+  font-size: 48px;
+}
+
+.div-form i {
+  text-align: center;
+  color: var(--color-text-white);
+  font-size: 96px;
+}
+
+.div-form input {
+  background-color: var(--color-second);
+  border: 2px solid var(--color-third);
+  border-radius: 8px;
+  padding: 8px;
+  outline: none;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 24px;
+  color: var(--color-text-white);
+  height: 50px;
+}
+
+.div-form input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.div-form button {
+  background-color: var(--color-first);
+  border: 2px solid var(--color-fourth);
+  border-radius: 8px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  color: var(--color-text-white);
+  height: 50px;
+  width: 350px;
+  cursor: pointer;
+}
+
+.div-form button:hover {
+  background-color: var(--color-fourth);
+}
+
+.div-message {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.div-message i {
+  color: var(--color-text-red);
+  font-size: 18px;
+}
+
+.error {
+  color: var(--color-text-red);
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+}

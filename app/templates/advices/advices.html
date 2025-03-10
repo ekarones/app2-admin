@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block title %}App2 | Consejos{% endblock %} {% block options %}
+<li><a href="{{ url_for('main.dashboard.index') }}" title="Panel">PANEL</a></li>
+<li><a href="{{ url_for('main.users.index') }}" title="Usuarios">USUARIOS</a></li>
+<li><a href="{{ url_for('main.diseases.index') }}" title="Enfermedades">ENFERMEDADES</a></li>
+<li><a class="active" href="{{ url_for('main.advices.index') }}" title="Consejos">CONSEJOS</a></li>
+<li><a href="{{ url_for('main.records.index') }}" title="Registros">REGISTROS</a></li>
+<li><a href="{{ url_for('main.notifications.index') }}" title="Notificaciones">NOTIFICACIONES</a></li>
+<li><a href="{{ url_for('main.admins.index') }}" title="Administradores">ADMINISTRADORES</a></li>
+{% endblock %} {% block section %}Consejos{% endblock %} {% block button %}
+<button id="open-modal-create" class="btn-primary" title="Agregar consejo">AGREGAR CONSEJO</button>
+{% endblock %} {% block content %}
+<table class="content-table">
+  <thead>
+    <tr>
+      <th class="col-id">ID</th>
+      <th class="col-name">Nombre enfermedad</th>
+      <th class="col-description-2">Consejo</th>
+      <th class="col-button">Editar</th>
+      <th class="col-button">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for advice in advices %}
+    <tr>
+      <td>{{ advice[0] }}</td>
+      <td>{{ advice[1] }}</td>
+      <td>{{ advice[2] }}</td>
+      <td>
+        <button class="update-btn" data-id="{{ advice[0] }}" data-name="{{ advice[1] }}" data-description="{{ advice[2] }}" title="Editar consejo">
+          <i class="bx bxs-edit-alt"></i>
+        </button>
+      </td>
+      <td>
+        <form class="form-delete" method="POST" action="{{ url_for('main.advices.delete_advice', id=advice[0]) }}">
+          <button class="delete-btn" type="submit" title="Eliminar consejo">
+            <i class="bx bxs-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  {% if page > 1 %}
+  <a href="{{ url_for('main.advices.index', page=page-1) }}" title="Anterior">Anterior</a>
+  {% endif %}
+
+  <span>Página {{ page }} de {{ total_pages }}</span>
+
+  {% if page < total_pages %}
+  <a href="{{ url_for('main.advices.index', page=page+1) }}" title="Siguiente">Siguiente</a>
+  {% endif %}
+</div>
+
+<div class="modal" id="modal-create">
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal-create" title="Cerrar"><i class="bx bx-x"></i></button>
+    <h1>Agregar Consejo</h1>
+    <form method="POST" action="/advices/add_advice">
+      <select id="disease_name" name="disease_name" required>
+        {% for disease in names_diseases %}
+        <option value="{{ disease[1] }}">{{ disease[1] }}</option>
+        {% endfor %}
+      </select>
+      <textarea id="description" name="description" placeholder="Consejo" rows="4" autocomplete="off" required></textarea>
+      <button class="btn-primary" type="submit" title="Guardar">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="modal-update">
+  <div class="modal-content">
+    <button class="close-btn" id="close-modal-update" title="Cerrar"><i class="bx bx-x"></i></button>
+    <h1>Actualizar Consejo</h1>
+    <h1>ID: <span id="id-advice"></span></h1>
+    <form method="post" id="updateForm">
+      <select id="disease_name" name="disease_name" required>
+        {% for disease in names_diseases %}
+        <option value="{{ disease[1] }}">{{ disease[1] }}</option>
+        {% endfor %}
+      </select>
+      <textarea id="description" name="description" placeholder="Consejo" rows="4" autocomplete="off" required></textarea>
+      <button class="btn-primary" type="submit" title="Guardar">Guardar</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block script %}
+<script src="{{ url_for('static', filename='js/advices.js') }}"></script>
+{% endblock %}
