@@ -241,6 +241,10 @@ body {
   width: 55%;
 }
 
+.col-description-3 {
+  width: 35%;
+}
+
 .col-title {
   width: 20%;
 }

@@ -14,7 +14,8 @@
     <tr>
       <th class="col-id">ID</th>
       <th class="col-title">Título</th>
-      <th class="col-description-2">Descripción</th>
+      <th class="col-description-3">Descripción</th>
+      <th class="col-date">Fecha</th>
       <th class="col-button">Editar</th>
       <th class="col-button">Eliminar</th>
     </tr>
@@ -25,6 +26,7 @@
       <td>{{ notification[0] }}</td>
       <td>{{ notification[1] }}</td>
       <td>{{ notification[2] }}</td>
+      <td>{{ notification[3] }}</td>
       <td>
         <button class="update-btn" data-id="{{ notification[0] }}" data-title="{{ notification[1] }}" data-description="{{ notification[2] }}" title="Editar notificación">
           <i class="bx bxs-edit-alt"></i>
