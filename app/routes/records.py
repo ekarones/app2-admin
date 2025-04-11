@@ -29,5 +29,5 @@ def index():
 @bp.route("/delete_record/<int:id>", methods=["POST"])
 def delete_record(id):
     api_url = current_app.config["API_RECORDS_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.records.index"))

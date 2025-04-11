@@ -40,12 +40,12 @@ def update_notification(id):
     title = request.form["title"]
     description = request.form["description"]
     notification_data = {"title": title, "description": description}
-    requests.put(f"{api_url}/{id}", json=notification_data)
+    requests.put(f"{api_url}{id}", json=notification_data)
     return redirect(url_for("main.notifications.index"))
 
 
 @bp.route("/delete_notification/<int:id>", methods=["POST"])
 def delete_notification(id):
     api_url = current_app.config["API_NOTIFICATIONS_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.notifications.index"))

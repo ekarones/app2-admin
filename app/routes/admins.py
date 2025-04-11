@@ -49,7 +49,7 @@ def update_admin(id):
     email = request.form["email"]
     password = request.form["password"]
     admin_data = {"username": username, "email": email, "password": password}
-    response = requests.put(f"{api_url}/{id}", json=admin_data)
+    response = requests.put(f"{api_url}{id}", json=admin_data)
     if response.status_code != 200:
         flash("Ya existe una cuenta con ese correo, intente otra vez", "error")
     return redirect(url_for("main.admins.index"))
@@ -58,5 +58,5 @@ def update_admin(id):
 @bp.route("/delete_admin/<int:id>", methods=["POST"])
 def delete_admin(id):
     api_url = current_app.config["API_ADMINS_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.admins.index"))

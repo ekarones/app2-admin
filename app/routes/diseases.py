@@ -43,7 +43,7 @@ def add_disease():
 
 @bp.route("/update_disease/<int:id>", methods=["POST", "GET"])
 def update_disease(id):
-    api_url = f"{current_app.config['API_DISEASES_URL']}/{id}"
+    api_url = current_app.config["API_DISEASES_URL"]
     name = request.form["name"]
     description = request.form["description"]
     image = request.files.get("image")  # La imagen puede ser opcional
@@ -51,7 +51,7 @@ def update_disease(id):
     if image and image.filename:  # Solo incluir archivo si se ha subido uno
         files = {"image": (image.filename, image.stream, image.mimetype)}
     data = {"name": name, "description": description}
-    response = requests.put(api_url, data=data, files=files)
+    response = requests.put(f"{api_url}{id}", data=data, files=files)
     if response.status_code == 200:
         return redirect(url_for("main.diseases.index"))
     else:
@@ -61,5 +61,5 @@ def update_disease(id):
 @bp.route("/delete_disease/<int:id>", methods=["POST"])
 def delete_disease(id):
     api_url = current_app.config["API_DISEASES_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.diseases.index"))

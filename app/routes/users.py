@@ -49,7 +49,7 @@ def update_user(id):
     email = request.form["email"]
     password = request.form["password"]
     user_data = {"username": username, "email": email, "password": password}
-    response = requests.put(f"{api_url}/{id}", json=user_data)
+    response = requests.put(f"{api_url}{id}", json=user_data)
     if response.status_code != 200:
         flash("Ya existe una cuenta con ese correo, intente otra vez", "error")
     return redirect(url_for("main.users.index"))
@@ -58,5 +58,5 @@ def update_user(id):
 @bp.route("/delete_user/<int:id>", methods=["POST"])
 def delete_user(id):
     api_url = current_app.config["API_USERS_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.users.index"))

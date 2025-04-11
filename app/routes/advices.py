@@ -42,14 +42,14 @@ def update_advice(id):
     disease_name = request.form["disease_name"]
     description = request.form["description"]
     advice_data = {"disease_name": disease_name, "description": description}
-    requests.put(f"{api_url}/{id}", json=advice_data)
+    requests.put(f"{api_url}{id}", json=advice_data)
     return redirect(url_for("main.advices.index"))
 
 
 @bp.route("/delete_advice/<int:id>", methods=["POST"])
 def delete_advice(id):
     api_url = current_app.config["API_ADVICES_URL"]
-    requests.delete(f"{api_url}/{id}")
+    requests.delete(f"{api_url}{id}")
     return redirect(url_for("main.advices.index"))
 
 
